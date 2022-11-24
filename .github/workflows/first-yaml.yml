@@ -1,0 +1,9 @@
+name: my first workflow 
+on: [push]
+jobs:
+ run-shell-command: 
+    steps:
+      - name: echo a string
+        run: echo "Badr"
+      - name: check version
+        run: node -v 
