@@ -1,9 +1,19 @@
-name: my first workflow 
-on: [push]
+name: Deploy our first pipeline for test-server
+on:
+ push:
+  branches: 
+     - master
 jobs:
- run-shell-command: 
-    steps:
-      - name: echo a string
-        run: echo "Badr"
-      - name: check version
-        run: node -v 
+ web-deploy:
+   name: deploy-test
+   runs-on: ubuntu-latest
+   steps:
+     - name: clone our code
+       uses: actions/checkout@v2
+
+     - name: 📂 Sync files
+       uses: SamKirkland/FTP-Deploy-Action@4.3.2
+       with:
+        server: mega-express.info
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
